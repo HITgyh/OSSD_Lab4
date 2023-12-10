@@ -22,15 +22,7 @@ public class SolutionTest {
     @After
     public void after() {
     }
-
-    /**
-     *
-     * Method: compareVersion
-     * Equal Versions:{0,("1.01", "1.001")} , {0,("1.0", "1.0.0")}
-     * Less Than Versions:{-1,("0.1", "1.1")}
-     * Greater Than Versions:{1,("1.2", "1.1")}
-     *
-     */
+    
     @Test
     public void testCompareVersion() {
 //TODO: Test goes here...
