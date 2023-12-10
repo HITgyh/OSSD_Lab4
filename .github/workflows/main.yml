@@ -1,5 +1,7 @@
 name: tests
-on: push
+on:
+  push:
+  pull_request:
 jobs:
   run_tests:
     runs-on: ubuntu-latest
@@ -18,28 +20,16 @@ jobs:
             restore-keys: ${{runner.os}}-maven
       - name: Run test with Maven
         run: mvn -B test --file pom.xml
-
-      - name: Add 'tests-passed' label
-        if: success()
-        uses: actions/github-script@v5
-        with:
-            github-token: ${{secrets.GITHUB_TOKEN}}
-            script: |
-              github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                labels: ['tests-passed']
-              })
-
-      - name: Auto Merge PR
-        if: github.event_name == 'pull_request' && github.event.action == 'synchronize' && contains(github.event.pull_request.labels.*.name, 'tests-passed')
+  automerge:
+    needs: run_tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Automerge
         uses: pascalgn/automerge-action@v0.14.3
         env:
-            GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-            MERGE_LABELS: "automerge,!work in progress"
-            MERGE_METHOD: "squash"
-            MERGE_COMMIT_MESSAGE: "pull-request-title"
-            MERGE_RETRIES: "6"
-            MERGE_RETRY_SLEEP: "10000"
-            MERGE_REMOVE_LABELS: "automerge"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_LABELS: ""
+          MERGE_METHOD: "squash"
+          MERGE_COMMIT_MESSAGE: "pull-request-description"
+          MERGE_RETRIES: "6"
+          MERGE_RETRY_SLEEP: "10000"
