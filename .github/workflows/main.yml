@@ -18,24 +18,3 @@ jobs:
             restore-keys: ${{runner.os}}-maven
       - name: Run test with Maven
         run: mvn -B test --file pom.xml
-
-merge:
-  needs: build
-  runs-on: ubuntu-latest
-  if: github.event_name == 'pull_request' && github.event.action == 'synchronize'
-  steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Merge PR
-      run: |
-        git fetch origin
-        git checkout ${GITHUB_HEAD_REF}
-        git merge origin/${GITHUB_BASE_REF} --no-commit --no-ff
-        git push origin HEAD:${GITHUB_HEAD_REF}
-    - name: Auto-Merge
-      uses: pascalgn/automerge-action@v0.13.1
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        merge_method: squash
-        merge_commit_message: "auto-merge: {{commit-message}}"
-        merge_filter: "label=automerge"
