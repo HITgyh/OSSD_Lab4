@@ -37,10 +37,10 @@ public class Solution {
             if (i < v2.length) {
                 y = Integer.parseInt(v2[i]);
             }
-            if (x < y) {
+            if (x > y) {
                 return 1;
             }
-            if (x > y) {
+            if (x < y) {
                 return -1;
             }
         }
