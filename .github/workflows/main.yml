@@ -16,5 +16,5 @@ jobs:
             path:~/.m2/repository
             key:${{runner.os}}-maven-${{hashFiles('**/pom.xml')}}
             restore-keys:${{runner.os}}-maven
-      - name:Run test with Maven
-         run:mvn -B test --file pom.xml
+      - name: Run test with Maven
+        run: mvn -B test --file pom.xml
