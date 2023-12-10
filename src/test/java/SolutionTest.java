@@ -24,7 +24,6 @@ public class SolutionTest {
     }
 
     /**
-     *
      * Method: compareVersion
      * Equal Versions:{0,("1.01", "1.001")} , {0,("1.0", "1.0.0")}
      * Less Than Versions:{-1,("0.1", "1.1")}
