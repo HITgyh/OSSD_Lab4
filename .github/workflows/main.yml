@@ -18,6 +18,7 @@ jobs:
             restore-keys: ${{runner.os}}-maven
       - name: Run test with Maven
         run: mvn -B test --file pom.xml
+
 merge:
   needs: build
   runs-on: ubuntu-latest
