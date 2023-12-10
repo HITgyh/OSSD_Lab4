@@ -18,6 +18,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -27,5 +33,6 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+
 
 </project>
